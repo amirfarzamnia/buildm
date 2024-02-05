@@ -1,0 +1,29 @@
+{
+  "build": {
+    "options": {
+      "log": true
+    },
+    "files": {
+      "js": {},
+      "css": {},
+      "html": {
+        "minifyJS": true,
+        "minifyCSS": true,
+        "minifyURLs": true,
+        "collapseBooleanAttributes": true,
+        "collapseInlineTagWhitespace": true,
+        "collapseWhitespace": true,
+        "caseSensitive": true,
+        "sortAttributes": true,
+        "sortClassName": true,
+        "keepClosingSlash": true,
+        "removeComments": true,
+        "removeAttributeQuotes": true,
+        "removeScriptTypeAttributes": true,
+        "removeStyleLinkTypeAttributes": true,
+        "decodeEntities": true,
+        "useShortDoctype": true
+      }
+    }
+  }
+}

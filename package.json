@@ -1,0 +1,37 @@
+{
+  "name": "buildm",
+  "version": "1.0.0",
+  "description": "Effortlessly create build files for your application",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": [
+    "build",
+    "minify",
+    "css",
+    "js",
+    "html",
+    "javascript",
+    "production",
+    "app",
+    "manager"
+  ],
+  "author": "Amir Farzamnia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amirfarzamnia/buildm/issues"
+  },
+  "homepage": "https://github.com/amirfarzamnia/buildm#readme",
+  "bin": {
+    "buildm": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amirfarzamnia/buildm.git"
+  },
+  "dependencies": {
+    "clean-css": "^5.3.3",
+    "html-minifier": "^4.0.0",
+    "uglify-js": "^3.17.4",
+    "yargs": "^17.7.2"
+  }
+}
