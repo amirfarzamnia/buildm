@@ -17,17 +17,29 @@ const { build } = yargs.example('$0 --build public src/index.js', 'Build files i
 
 // If the 'build' option is provided, initiate the build process
 if (build) {
-    console.info('Build Manager started the process of building', build.length, 'files/folders...');
+    console.time('Process Duration');
+
+    // Print file and folder counts
+    console.log();
+    console.log('>---------------------------<');
+    console.log('> Total Files:', build.filter((item) => item.endsWith('.')).length);
+    console.log('> Total Folders:', build.filter((item) => !item.endsWith('.')).length);
+    console.log('>---------------------------<');
+    console.log();
 
     // Iterate through each directory provided in the 'build' option and initiate the build
     build.forEach(buildFolderAndFiles);
+
+    console.log()
+
+    console.timeEnd('Process Duration');
 }
 
 // Function to build files in a given directory
 function buildFolderAndFiles(dir, config = {}) {
     // Check if the file/folder exists
     if (!fs.existsSync(dir)) {
-        return console.warn('\n\x1b[1m\x1b[33mFile/Folder doesn\'t exist:\x1b[0m', dir);
+        return console.log('\n\x1b[1m\x1b[33mFile/Folder doesn\'t exist:\x1b[0m', dir);
     }
 
     // If it's a directory, recursively build its contents
@@ -36,7 +48,6 @@ function buildFolderAndFiles(dir, config = {}) {
     }
 
     // Read file content, determine file format, and get configuration
-    const start = new Date();
     const content = fs.readFileSync(dir, 'utf8');
     const format = path.extname(dir).split('.')[1];
     const conf = config.files?.[format] ?? defaultConfig.build.files[format];
@@ -76,17 +87,17 @@ function buildFolderAndFiles(dir, config = {}) {
 
         // Log information about the file processing if specified in the configuration
         if (config.options?.log ?? defaultConfig.build.options.log) {
-            console.info('[\x1b[' + {
+            console.log('\x1b[' + {
                 js: '33',
                 css: '36',
                 html: '35'
-            }[format] + 'm' + format.toUpperCase() + '\x1b[0m]', path.basename(dir) + '\x1b[0m', '- Duration:', new Date() - start, 'ms.');
+            }[format] + 'm>\x1b[0m', path.basename(dir) + '\x1b[0m');
         }
     }
 
     // Function to handle errors during file processing
     function fileError(error) {
-        console.error('Error in processing', dir + ':', error);
+        console.log('Error in processing', dir + ':', error);
     }
 }
 
