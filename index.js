@@ -4,9 +4,9 @@ const defaultConfig = require('./config.json');
 const HTMLMinifier = require('html-minifier');
 const CleanCSS = require('clean-css');
 const UglifyJS = require('uglify-js');
+const path = require('node:path');
 const yargs = require('yargs');
-const path = require('path');
-const fs = require('fs');
+const fs = require('node:fs');
 
 // Parse command line arguments using yargs
 const { build } = yargs.example('$0 --build public src/index.js', 'Build files in the specified directories').usage('Usage: $0 [options]').option('build', {
@@ -38,14 +38,10 @@ if (build) {
 // Function to build files in a given directory
 function buildFolderAndFiles(dir, config = {}) {
     // Check if the file/folder exists
-    if (!fs.existsSync(dir)) {
-        return console.log('\n\x1b[1m\x1b[33mFile/Folder doesn\'t exist:\x1b[0m', dir);
-    }
+    if (!fs.existsSync(dir)) return console.log('\n\x1b[1m\x1b[33mFile/Folder doesn\'t exist:\x1b[0m', dir);
 
     // If it's a directory, recursively build its contents
-    if (fs.statSync(dir).isDirectory()) {
-        return fs.readdirSync(dir).forEach((file) => buildFolderAndFiles(path.join(dir, file), config));
-    }
+    if (fs.statSync(dir).isDirectory()) return fs.readdirSync(dir).forEach((file) => buildFolderAndFiles(path.join(dir, file), config));
 
     // Read file content, determine file format, and get configuration
     const content = fs.readFileSync(dir, 'utf8');
