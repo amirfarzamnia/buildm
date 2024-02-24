@@ -19,18 +19,14 @@ const { build } = yargs.example('$0 --build public src/index.js', 'Build files i
 if (build) {
     console.time('Process Duration');
 
-    // Print file and folder counts
-    console.log();
-    console.log('>---------------------------<');
-    console.log('> Total Files:', build.filter((item) => item.endsWith('.')).length);
-    console.log('> Total Folders:', build.filter((item) => !item.endsWith('.')).length);
-    console.log('>---------------------------<');
-    console.log();
+    const isFile = /\.[^.]+$/;
 
-    // Iterate through each directory provided in the 'build' option and initiate the build
+    console.log('\n>---------------------------<');
+    console.log('> Total Files:', build.filter((item) => isFile.test(item)).length);
+    console.log('> Total Folders:', build.filter((item) => !isFile.test(item)).length);
+    console.log('>---------------------------<\n');
+
     build.forEach(buildFolderAndFiles);
-
-    console.log()
 
     console.timeEnd('Process Duration');
 }
@@ -98,6 +94,4 @@ function buildFolderAndFiles(dir, config = {}) {
 }
 
 // Export the buildFolderAndFiles function for external use
-module.exports = {
-    buildFolderAndFiles
-};
+module.exports = { buildFolderAndFiles };

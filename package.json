@@ -1,6 +1,6 @@
 {
   "name": "buildm",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Effortlessly create build files for your application",
   "main": "index.js",
   "types": "index.d.ts",
